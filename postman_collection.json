@@ -1,0 +1,115 @@
+{
+  "info": {
+    "name": "Biblioteca API",
+    "description": "Collection to test the Biblioteca API backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Prueba 1: Crear un libro",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"isbn\": \"978-0-13-468599-1\",\n  \"titulo\": \"Clean Code\",\n  \"autor\": \"Robert C. Martin\",\n  \"anioPublicacion\": 2008,\n  \"categoria\": \"Programación\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/libros",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "libros"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 2: Listar todos los libros",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/libros",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "libros"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 3: Consultar un libro por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/libros/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "libros", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "",
+              "description": "Pega aquí el ID generado en la Prueba 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 4: Actualizar un libro",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"isbn\": \"978-0-13-468599-1\",\n  \"titulo\": \"Clean Code: A Handbook of Agile Software Craftsmanship\",\n  \"autor\": \"Robert C. Martin\",\n  \"anioPublicacion\": 2008,\n  \"categoria\": \"Ingeniería de Software\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/libros/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "libros", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "",
+              "description": "Pega aquí el ID generado en la Prueba 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Prueba 5: Eliminar un libro",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/libros/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "libros", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "",
+              "description": "Pega aquí el ID generado en la Prueba 1"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
