@@ -1,13 +1,33 @@
 {
   "info": {
     "name": "Biblioteca API",
-    "description": "Collection to test the Biblioteca API backend",
+    "description": "Collection to test the Biblioteca API backend. Set ejemplarId to an existing ejemplar id before running préstamo requests.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
       "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "libroId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "usuarioId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "prestamoId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "ejemplarId",
+      "value": "",
       "type": "string"
     }
   ],
@@ -26,6 +46,22 @@
           "mode": "raw",
           "raw": "{\n  \"isbn\": \"978-0-13-468599-1\",\n  \"titulo\": \"Clean Code\",\n  \"autor\": \"Robert C. Martin\",\n  \"anioPublicacion\": 2008,\n  \"categoria\": \"Programación\"\n}"
         },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (pm.response.code === 201) {",
+                "  const response = pm.response.json();",
+                "  if (response && response.id) {",
+                "    pm.collectionVariables.set('libroId', response.id);",
+                "  }",
+                "}"
+              ]
+            }
+          }
+        ],
         "url": {
           "raw": "{{baseUrl}}/api/libros",
           "host": ["{{baseUrl}}"],
@@ -51,16 +87,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/libros/:id",
+          "raw": "{{baseUrl}}/api/libros/{{libroId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "libros", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 1"
-            }
-          ]
+          "path": ["api", "libros", "{{libroId}}"]
         }
       }
     },
@@ -79,16 +108,9 @@
           "raw": "{\n  \"isbn\": \"978-0-13-468599-1\",\n  \"titulo\": \"Clean Code: A Handbook of Agile Software Craftsmanship\",\n  \"autor\": \"Robert C. Martin\",\n  \"anioPublicacion\": 2008,\n  \"categoria\": \"Ingeniería de Software\"\n}"
         },
         "url": {
-          "raw": "{{baseUrl}}/api/libros/:id",
+          "raw": "{{baseUrl}}/api/libros/{{libroId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "libros", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 1"
-            }
-          ]
+          "path": ["api", "libros", "{{libroId}}"]
         }
       }
     },
@@ -98,16 +120,9 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/libros/:id",
+          "raw": "{{baseUrl}}/api/libros/{{libroId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "libros", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 1"
-            }
-          ]
+          "path": ["api", "libros", "{{libroId}}"]
         }
       }
     },
@@ -125,6 +140,22 @@
           "mode": "raw",
           "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan.perez@ejemplo.com\"\n}"
         },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (pm.response.code === 201) {",
+                "  const response = pm.response.json();",
+                "  if (response && response.id) {",
+                "    pm.collectionVariables.set('usuarioId', response.id);",
+                "  }",
+                "}"
+              ]
+            }
+          }
+        ],
         "url": {
           "raw": "{{baseUrl}}/api/usuarios",
           "host": ["{{baseUrl}}"],
@@ -150,16 +181,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/usuarios/:id",
+          "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "usuarios", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 6"
-            }
-          ]
+          "path": ["api", "usuarios", "{{usuarioId}}"]
         }
       }
     },
@@ -178,16 +202,9 @@
           "raw": "{\n  \"nombre\": \"Juan Pérez Actualizado\",\n  \"email\": \"juan.perez.actualizado@ejemplo.com\"\n}"
         },
         "url": {
-          "raw": "{{baseUrl}}/api/usuarios/:id",
+          "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "usuarios", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 6"
-            }
-          ]
+          "path": ["api", "usuarios", "{{usuarioId}}"]
         }
       }
     },
@@ -197,16 +214,83 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/usuarios/:id",
+          "raw": "{{baseUrl}}/api/usuarios/{{usuarioId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "usuarios", ":id"],
-          "variable": [
-            {
-              "key": "id",
-              "value": "",
-              "description": "Pega aquí el ID generado en la Prueba 6"
+          "path": ["api", "usuarios", "{{usuarioId}}"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 11: Crear un préstamo",
+      "description": "Usa un usuarioId existente y un ejemplarId existente. El backend no expone un endpoint para crear ejemplares.",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuarioId\": \"{{usuarioId}}\",\n  \"ejemplarId\": \"{{ejemplarId}}\"\n}"
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "type": "text/javascript",
+              "exec": [
+                "if (pm.response.code === 201) {",
+                "  const response = pm.response.json();",
+                "  if (response && response.id) {",
+                "    pm.collectionVariables.set('prestamoId', response.id);",
+                "  }",
+                "}"
+              ]
             }
-          ]
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/prestamos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prestamos"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 12: Listar todos los préstamos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prestamos",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prestamos"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 13: Consultar un préstamo por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prestamos/{{prestamoId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prestamos", "{{prestamoId}}"]
+        }
+      }
+    },
+    {
+      "name": "Prueba 14: Registrar devolución de un préstamo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prestamos/{{prestamoId}}/devolucion",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prestamos", "{{prestamoId}}", "devolucion"]
         }
       }
     }
